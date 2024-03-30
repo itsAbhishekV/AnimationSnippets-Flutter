@@ -1,4 +1,4 @@
-import 'package:animatedfloating_button_snippet/screens/home_screen.dart';
+import 'package:animatedfloating_button_snippet/feature/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
