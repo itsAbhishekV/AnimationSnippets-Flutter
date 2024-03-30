@@ -1,3 +1,4 @@
+import 'package:animatedfloating_button_snippet/feature/widget/item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:animations/animations.dart';
 
@@ -26,14 +27,13 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         centerTitle: true,
       ),
-      body: GestureDetector(
+      body: InkWell(
         onTap: () => setState(() {
           _expanded = false;
         }),
-        child: Container(
+        child: SizedBox(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
-          decoration: const BoxDecoration(color: Colors.deepOrange),
         ),
       ),
       floatingActionButton: Padding(
@@ -44,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
           height: _expanded ? 270 : 64,
           decoration: BoxDecoration(
             color: Colors.black,
-            borderRadius: BorderRadius.circular(25),
+            borderRadius: BorderRadius.circular(32),
           ),
           child: _expanded
               ? SingleChildScrollView(
@@ -54,21 +54,36 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        ...["Item 1", "Item 2", "Item 3"].map((text) {
-                          return ListTile(
-                            leading: const Icon(
-                              Icons.abc,
-                              color: Colors.deepOrange,
-                            ),
-                            title: Text(
-                              text,
-                              style: const TextStyle(color: Colors.white),
-                            ),
-                            subtitle: const Text(
-                              'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                              style: TextStyle(color: Colors.grey),
-                            ),
-                          );
+                        ...["Books", "Explore", "Stay"].map((text) {
+                          return OpenContainer(
+                              openColor: Colors.black,
+                              closedColor: Colors.black,
+                              closedBuilder: (_, open) {
+                                return ListTile(
+                                  onTap: () {
+                                    open();
+                                    print('clicked $text');
+                                  },
+                                  leading: const Icon(
+                                    Icons.abc,
+                                    color: Colors.deepOrange,
+                                  ),
+                                  title: Text(
+                                    text,
+                                    style: const TextStyle(color: Colors.white),
+                                  ),
+                                  subtitle: const Text(
+                                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                                    style: TextStyle(color: Colors.grey),
+                                  ),
+                                );
+                              },
+                              openBuilder: (_, close) {
+                                return ItemWidget(
+                                  item: text,
+                                  onTap: close,
+                                );
+                              });
                         }).toList(),
                       ],
                     ),
