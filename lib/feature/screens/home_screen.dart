@@ -39,9 +39,10 @@ class _HomeScreenState extends State<HomeScreen> {
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(left: 30.0),
         child: AnimatedContainer(
-          duration: const Duration(milliseconds: 300),
-          width: _expanded ? MediaQuery.of(context).size.width - 30 : 64,
-          height: _expanded ? 270 : 64,
+          duration: const Duration(milliseconds: 340),
+          curve: Curves.easeInOut,
+          width: _expanded ? MediaQuery.of(context).size.width : 64,
+          height: _expanded ? 265 : 64,
           decoration: BoxDecoration(
             color: Colors.black,
             borderRadius: BorderRadius.circular(32),
@@ -56,25 +57,32 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         ...["Books", "Explore", "Stay"].map((text) {
                           return OpenContainer(
-                              openColor: Colors.black,
+                              transitionDuration:
+                                  const Duration(milliseconds: 500),
                               closedColor: Colors.black,
+                              closedShape: const RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20))),
                               closedBuilder: (_, open) {
-                                return ListTile(
-                                  onTap: () {
-                                    open();
-                                    print('clicked $text');
-                                  },
-                                  leading: const Icon(
-                                    Icons.abc,
-                                    color: Colors.deepOrange,
-                                  ),
-                                  title: Text(
-                                    text,
-                                    style: const TextStyle(color: Colors.white),
-                                  ),
-                                  subtitle: const Text(
-                                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-                                    style: TextStyle(color: Colors.grey),
+                                return Expanded(
+                                  child: ListTile(
+                                    onTap: () {
+                                      open();
+                                      print('clicked $text');
+                                    },
+                                    leading: const Icon(
+                                      Icons.abc,
+                                      color: Colors.deepOrange,
+                                    ),
+                                    title: Text(
+                                      text,
+                                      style:
+                                          const TextStyle(color: Colors.white),
+                                    ),
+                                    subtitle: const Text(
+                                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                                      style: TextStyle(color: Colors.grey),
+                                    ),
                                   ),
                                 );
                               },
